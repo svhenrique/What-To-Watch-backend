@@ -1,16 +1,13 @@
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import path
 from core import views
 
-router = routers.DefaultRouter()
-router.register(r'episodes', views.EpisodeViewSet)
-router.register(r'watchablecontent', views.WatchableContentViewSet)
-router.register(r'highlightedarea', views.HighlightedAreaViewSet)
-
-
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('episode/', views.EpisodeList.as_view(), name='episode-list'),    
+    path('episode/<int:pk>', views.EpisodeDetail.as_view(), name='episode-detail'),
+
+    path('content/', views.WatchableContentList.as_view(), name='content-list'),    
+    path('content/<int:pk>', views.WatchableContentDetail.as_view(), name='content-detail'),
+
+    path('higharea/', views.HighlightedAreaList.as_view(), name='higharea-list'),    
+    path('higharea/<int:pk>', views.HighlightedAreaDetail.as_view(), name='higharea-detail'),
 ]
