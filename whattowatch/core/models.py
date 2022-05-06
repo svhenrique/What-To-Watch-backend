@@ -21,16 +21,8 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
-class Episode(Base):
-    name = models.TextField(verbose_name="Nome")
-    episode = models.PositiveIntegerField(verbose_name="Vizualizações Diária", default=0)
-    description = models.TextField(verbose_name="Descrição")
-    season = models.PositiveIntegerField(verbose_name="Temporada")
-    video = EmbedVideoField()
-
 class WatchableContent(Base):
     title = models.TextField(verbose_name="Título")
-    episodes = models.ForeignKey(verbose_name="Episódios", to=Episode, on_delete=models.CASCADE, related_name="watchable_content")
     description = models.TextField(verbose_name='Descrição')
     ratting_age = models.IntegerField(choices=CHOICES_RATTING)
     poster = models.ImageField(verbose_name='Poster', upload_to=get_file_path, max_length=50)
@@ -38,6 +30,20 @@ class WatchableContent(Base):
     daily_views = models.PositiveIntegerField(verbose_name="Vizualizações Diária", default=0)
     week_views = models.PositiveIntegerField(verbose_name="Vizualizações Semanal",default=0)
     year_views = models.PositiveIntegerField(verbose_name="Vizualizações Anual", default=0)
+
+    def __str__(self):
+        return self.title
+
+class Episode(Base):
+    name = models.TextField(verbose_name="Nome")
+    episode = models.PositiveIntegerField(verbose_name="Vizualizações Diária", default=0)
+    content = models.ForeignKey(verbose_name="Conteúdo", to=WatchableContent, on_delete=models.CASCADE, related_name="episodes")
+    description = models.TextField(verbose_name="Descrição")
+    season = models.PositiveIntegerField(verbose_name="Temporada")
+    video = EmbedVideoField()
+
+    def __str__(self):
+        return self.name
 
 class HighlightedArea(Base):
     contents = models.ManyToManyField(verbose_name="Conteúdo", to=WatchableContent)

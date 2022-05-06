@@ -6,12 +6,12 @@ from core.models import WatchableContent, Episode, HighlightedArea
 
 @admin.register(Episode)
 class EpisodeAdmin(admin.ModelAdmin):
-    list_display = ['active', 'created_at', 'updated_at', 'id', 'episode', 'season']
+    list_display = ['active', 'id', 'created_at', 'updated_at', 'episode', 'season', 'content']
 
 @admin.register(WatchableContent)
 class HighlightedAreaAdmin(admin.ModelAdmin):
-    list_display = ['active', 'created_at', 'updated_at', 'id']
+    list_display = ['active', 'id', 'created_at', 'updated_at', ]
 
 @admin.register(HighlightedArea)
-class EpisodeAdmin(admin.ModelAdmin):
-    list_display = ['active', 'created_at', 'updated_at', 'id']
+class HighlightedAreaAdmin(admin.ModelAdmin):
+    list_display = ['active','id', 'created_at', 'updated_at', 'position']
