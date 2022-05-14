@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from embed_video.fields import EmbedVideoField
 from core.utils import get_file_path
 from django.db import models
@@ -27,6 +28,7 @@ class WatchableContent(Base):
     ratting_age = models.IntegerField(choices=CHOICES_RATTING)
     poster = models.ImageField(verbose_name='Poster', upload_to=get_file_path, max_length=50)
     genres = models.TextField(verbose_name="Gêneros")
+    release_date = models.DateField(verbose_name="Data de Lançamento", null=True, blank=True)
     daily_views = models.PositiveIntegerField(verbose_name="Vizualizações Diária", default=0)
     week_views = models.PositiveIntegerField(verbose_name="Vizualizações Semanal",default=0)
     year_views = models.PositiveIntegerField(verbose_name="Vizualizações Anual", default=0)
